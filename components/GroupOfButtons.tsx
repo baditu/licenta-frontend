@@ -20,10 +20,10 @@ const GroupOfButtons = () => {
   return (
     <Box
       display={"flex"}
-      flexDirection={isForMobile || isForTable ? "column" : "row"}
+      flexDirection={isForTable ? "column" : "row"}
       backgroundColor="#F6D13A"
       width="80%"
-      height={isForMobile || isForTable ? "100%" : "240px"}
+      height={isForTable ? "100%" : "240px"}
       borderRadius="16px"
       borderColor={"black"}
       borderWidth={"2px"}
@@ -38,7 +38,7 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={isForMobile || isForTable ? "100%" : "23%"}
+        w={isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/findParkingLot")}
@@ -60,7 +60,7 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={isForMobile || isForTable ? "100%" : "23%"}
+        w={isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/marketplace")}
@@ -83,7 +83,7 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={isForMobile || isForTable ? "100%" : "23%"}
+        w={isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/rental-scheme")}
@@ -106,7 +106,7 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={isForMobile || isForTable ? "100%" : "23%"}
+        w={isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/viewMyParkingLots")}
@@ -117,7 +117,7 @@ const GroupOfButtons = () => {
             View your parking lots
           </Text>
           <Text fontSize={"12px"} textColor={"blackAlpha.700"}>
-            Check what parking lots you can have
+            Check what parking lots you have
           </Text>
         </VStack>
       </Box>

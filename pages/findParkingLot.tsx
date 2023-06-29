@@ -463,8 +463,6 @@ const FindParkingLot = (props: any) => {
     sortedParkingLots = getSortedLots(filteredParkingLots, filtersState.sortBy);
   }
 
-  console.log("selectedLot: ", selectedLot);
-
   return (
     <Layout>
       <Background />

@@ -15,7 +15,7 @@ import { useUserContext } from "@/context/UserContext";
 
 const MaineMenu = () => {
   const [isForMobile] = useMediaQuery("(max-width: 500px)");
-  const [isForTable] = useMediaQuery("(max-width: 800px)");
+  const [isForTablet] = useMediaQuery("(max-width: 800px)");
 
   return (
     <Flex
@@ -23,7 +23,7 @@ const MaineMenu = () => {
       alignItems="flex-start"
       height="100%"
       position="relative"
-      pt={isForMobile || isForTable ? "1rem" : "100px"}
+      pt={isForMobile || isForTablet ? "1rem" : "100px"}
       zIndex={"100"}
     >
       <VStack>
@@ -34,7 +34,7 @@ const MaineMenu = () => {
               justifyContent="space-between"
               padding="2rem"
               width="80%"
-              flexDirection={isForTable ? "column" : "row"}
+              flexDirection={isForTablet ? "column" : "row"}
             >
               <MainCard type={"normal"} image={"/images/normal_car.png"} />
               <MainCard type={"smart"} image={"/images/smart_car.png"} />

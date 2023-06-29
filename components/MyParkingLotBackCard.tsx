@@ -9,7 +9,6 @@ type MyParkingLotBackCardProps = {
 const MyParkingLotBackCard: React.FC<MyParkingLotBackCardProps> = ({
   item,
 }) => {
-  console.log("Item: ", item);
 
   return (
     <VStack

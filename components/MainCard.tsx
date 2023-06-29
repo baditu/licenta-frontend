@@ -19,7 +19,7 @@ interface MainCardProps {
 const MainCard: React.FC<MainCardProps> = ({ image, type }) => {
   const router = useRouter();
   const { state: userState, dispatch } = useUserContext();
-  const [isForTable] = useMediaQuery("(max-width: 800px)");
+  const [isForTablet] = useMediaQuery("(max-width: 800px)");
 
   const handleClick = (customFilter: any) => {
     router.push("/findParkingLot");
@@ -135,13 +135,13 @@ const MainCard: React.FC<MainCardProps> = ({ image, type }) => {
   return (
     <Box
       backgroundColor="#F6D13A"
-      width={isForTable ? "100%" : "30%"}
-      height={isForTable ? "60px" : "240px"}
+      width={isForTablet ? "100%" : "30%"}
+      height={isForTablet ? "60px" : "240px"}
       borderRadius="16px"
       borderColor={"black"}
       borderWidth={"2px"}
     >
-      {(isForTable && (
+      {(isForTablet && (
         <>
           <HStack justifyContent={"space-between"} p={2}>
             <Box maxW={"80px"} maxH={"50px"}>
