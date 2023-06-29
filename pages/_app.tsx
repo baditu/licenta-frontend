@@ -2,11 +2,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import {
   ChakraProvider,
-  ColorModeScript,
-  Container,
-  Heading,
-  Stack,
-  Text,
 } from "@chakra-ui/react";
 import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";

@@ -7,13 +7,12 @@ import {
   useColorModeValue,
   HStack,
   VStack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { ComponentConnect } from "./ComponentConnect";
 import FlipCoin from "./FlipCoin";
 
 export const NavBar = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const navbarColor = useColorModeValue("#F6D13A", "#F6D13A");
 
   return (

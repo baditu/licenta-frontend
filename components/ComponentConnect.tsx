@@ -1,5 +1,12 @@
 import { useMyBadonBalance } from "@/lib/hooks";
-import { HStack, Image, Box, VStack, Text } from "@chakra-ui/react";
+import {
+  HStack,
+  Image,
+  Box,
+  VStack,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils.js";
@@ -11,13 +18,23 @@ export const ComponentConnect = () => {
   const { data: badons } = useMyBadonBalance();
   const { address: account } = useAccount();
   const { chain } = useNetwork();
-  
+
+  const [isForSmallMobile] = useMediaQuery("(max-width: 400px)");
+
   const myBalanceOfBadons =
     typeof window !== "undefined" && badons !== undefined ? badons : 0;
 
   return (
     <VStack alignItems={"flex-end"}>
-      <ConnectButton showBalance={false} />;
+      <ConnectButton
+        chainStatus={
+          isForSmallMobile
+            ? "none"
+            : { smallScreen: "icon", largeScreen: "full" }
+        }
+        showBalance={false}
+      />
+      ;
       <HStack spacing={"1rem"}>
         <Text suppressHydrationWarning fontSize={"24px"}>
           {account && chain?.id === 80001

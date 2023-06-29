@@ -1,18 +1,29 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, Center, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  HStack,
+  Text,
+  useMediaQuery,
+  VStack,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AiOutlineDollarCircle, AiOutlineSearch } from "react-icons/ai";
 import { MdCarRental, MdLocalParking } from "react-icons/md";
 
 const GroupOfButtons = () => {
   const router = useRouter();
+  const [isForMobile] = useMediaQuery("(max-width: 550px)");
+    const [isForTable] = useMediaQuery("(max-width: 800px)");
 
   return (
     <Box
       display={"flex"}
+      flexDirection={isForMobile || isForTable ? "column" : "row"}
       backgroundColor="#F6D13A"
       width="80%"
-      height="240px"
+      height={isForMobile || isForTable ? "100%" : "240px"}
       borderRadius="16px"
       borderColor={"black"}
       borderWidth={"2px"}
@@ -21,12 +32,13 @@ const GroupOfButtons = () => {
     >
       <Box
         padding={"10px"}
+        mb={"1rem"}
         borderWidth={"5px"}
         borderRadius={"16px"}
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={"23%"}
+        w={isForMobile || isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/findParkingLot")}
@@ -48,10 +60,11 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={"23%"}
+        w={isForMobile || isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/marketplace")}
+        mb={"1rem"}
       >
         <VStack alignItems={"start"}>
           <AiOutlineDollarCircle size={"32px"} color={"#D56B2D"} />
@@ -70,10 +83,11 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={"23%"}
+        w={isForMobile || isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/rental-scheme")}
+        mb={"1rem"}
       >
         <VStack alignItems={"start"}>
           <MdCarRental color={"#D56B2D"} size={"32px"}></MdCarRental>
@@ -92,7 +106,7 @@ const GroupOfButtons = () => {
         borderColor={"blackAlpha.500"}
         bgColor={"blackAlpha.200"}
         boxShadow={"dark-lg"}
-        w={"23%"}
+        w={isForMobile || isForTable ? "100%" : "23%"}
         h={"100%"}
         _hover={{ cursor: "pointer", bg: "#f5d556" }}
         onClick={() => router.push("/viewMyParkingLots")}
