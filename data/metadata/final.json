@@ -9,11 +9,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "41.40338"
+          "value": "44.45515159566261"
         },
         {
           "trait_type": "longitude",
-          "value": "2.17403"
+          "value": "26.048777762367735"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -42,11 +42,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "37.27"
+          "value": "44.4551349111338"
         },
         {
           "trait_type": "longitude",
-          "value": "1.12"
+          "value": "26.047537903046447"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -75,11 +75,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "77.19"
+          "value": "44.45669131826318"
         },
         {
           "trait_type": "longitude",
-          "value": "7.84"
+          "value": "26.04756649967254"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -108,11 +108,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "21.02"
+          "value": "44.453216337990284"
         },
         {
           "trait_type": "longitude",
-          "value": "27.14"
+          "value": "26.047796916693983"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -141,11 +141,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "20.19"
+          "value": "44.45527116576659"
         },
         {
           "trait_type": "longitude",
-          "value": "14.84"
+          "value": "26.050235107389938"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -174,11 +174,11 @@
       "attributes": [
         {
           "trait_type": "latitude",
-          "value": "12.19"
+          "value": "44.45595519001611"
         },
         {
           "trait_type": "longitude",
-          "value": "65.84"
+          "value": "26.047811513739106"
         },
         {
           "trait_type": "forDisabledPeople",
@@ -195,6 +195,304 @@
         {
           "trait_type": "isBicycle",
           "value": "true"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #7",
+      "external_url": "https://baditaandrei.io/7",
+      "image": "ipfs://bafkreicdr6wiagmokd5m7aiyof6ero7zzj4ce6ay3zntnpp7jp2yxj5x2y",
+      "name": "ParkingLot 7",
+      "id": "7",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.456101246914045"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.04488460872335"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #8",
+      "external_url": "https://baditaandrei.io/8",
+      "image": "ipfs://bafkreiadf6bmpdux5wxwqq3lbuyvzm7jvms5sauebztksgnqzcykbaj24y",
+      "name": "ParkingLot 8",
+      "id": "8",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.45414251178212"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.046311978243494"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "true"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #9",
+      "external_url": "https://baditaandrei.io/9",
+      "image": "ipfs://bafkreibrpvaahsmja5cgedsjixuyiztbbqqxap27g3mar6a7ousdu72kga",
+      "name": "ParkingLot 9",
+      "id": "9",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.45392042026745"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.052973205529838"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "true"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #10",
+      "external_url": "https://baditaandrei.io/10",
+      "image": "ipfs://bafkreibpja2mj3mixey5bfwgolpvgiuejrojekcouq7qbc6p7hoasudnze",
+      "name": "ParkingLot 10",
+      "id": "10",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.468942318492"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.086611746582236"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "true"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #11",
+      "external_url": "https://baditaandrei.io/11",
+      "image": "ipfs://bafkreia2wpbcszkc3aqw7bmbzukwxlftlob3smkzq2cfcjlci2guidseuy",
+      "name": "ParkingLot 11",
+      "id": "11",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.46719968967659"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.086233254457824"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #12",
+      "external_url": "https://baditaandrei.io/12",
+      "image": "ipfs://bafkreia2wpbcszkc3aqw7bmbzukwxlftlob3smkzq2cfcjlci2guidseuy",
+      "name": "ParkingLot 12",
+      "id": "12",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.46811457626643"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.086453024067424"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #13",
+      "external_url": "https://baditaandrei.io/13",
+      "image": "ipfs://bafkreicdr6wiagmokd5m7aiyof6ero7zzj4ce6ay3zntnpp7jp2yxj5x2y",
+      "name": "ParkingLot 13",
+      "id": "13",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.469987870779875"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.086831516191864"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #14",
+      "external_url": "https://baditaandrei.io/14",
+      "image": "ipfs://bafkreibrpvaahsmja5cgedsjixuyiztbbqqxap27g3mar6a7ousdu72kga",
+      "name": "ParkingLot 14",
+      "id": "14",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.47055654712875"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.086944114773246"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "true"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "true"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "description": "ParkingLot - dapp pentru gestionarea locurilor de parcare #15",
+      "external_url": "https://baditaandrei.io/15",
+      "image": "ipfs://bafkreicdr6wiagmokd5m7aiyof6ero7zzj4ce6ay3zntnpp7jp2yxj5x2y",
+      "name": "ParkingLot 15",
+      "id": "15",
+      "attributes": [
+        {
+          "trait_type": "latitude",
+          "value": "44.472369860896464"
+        },
+        {
+          "trait_type": "longitude",
+          "value": "26.087442269621732"
+        },
+        {
+          "trait_type": "forDisabledPeople",
+          "value": "false"
+        },
+        {
+          "trait_type": "smartLot",
+          "value": "false"
+        },
+        {
+          "trait_type": "isMotorcycle",
+          "value": "false"
+        },
+        {
+          "trait_type": "isBicycle",
+          "value": "false"
         }
       ]
     }

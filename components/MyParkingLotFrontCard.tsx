@@ -139,7 +139,7 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
                 <Image
                   mt={0}
                   alt={`lot number ${item?.id}`}
-                  src={`https://ipfs.io/ipfs/${item.image.split("/")[2]}/`}
+                  src={`https://ipfs.io/ipfs/${item?.image.split("/")[2]}/`}
                   maxW={"150px"}
                 />
                 <Icon
@@ -154,7 +154,7 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
 
               <VStack alignItems={"start"}>
                 <Text fontSize={"24px"} color={"black"}>
-                  ParkingLot #{item.id}
+                  ParkingLot #{item?.id}
                 </Text>
               </VStack>
             </HStack>
@@ -216,7 +216,7 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
                     <Image
                       mt={0}
                       alt={`lot number ${item?.id}`}
-                      src={`https://ipfs.io/ipfs/${item.image.split("/")[2]}/`}
+                      src={`https://ipfs.io/ipfs/${item?.image.split("/")[2]}/`}
                       maxW={"250px"}
                     />
                     <Icon
@@ -233,7 +233,7 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
                     alignSelf={"center"}
                     boxShadow={"dark-lg"}
                   >
-                    <ListOfAttributes attributes={item.attributes} />
+                    <ListOfAttributes attributes={item?.attributes} />
                   </Box>
                 </HStack>
                 <HStack justifyContent={"space-between"}>

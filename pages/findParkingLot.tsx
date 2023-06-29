@@ -43,7 +43,6 @@ import {
 } from "@/lib/types";
 import ParkingLotCard from "@/components/ParkingLotCard";
 import LotCardForRent from "@/components/LotCardForRent";
-import SingleMap from "@/components/SingleMap";
 import SearchInput from "@/components/SearchInput";
 import { MdFilterList } from "react-icons/md";
 import Filters from "@/components/Filters";

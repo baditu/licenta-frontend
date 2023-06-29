@@ -24,7 +24,7 @@ const MyMap: React.FC<MapProps> = ({
   const [coordinates, setCoordinates] = useState<number[] | null>(null);
 
   const coordForLots: number[][] = [
-    [26.050242, 44.454618],
+    [26.048777762367735, 44.45515159566261],
     [26.048992, 44.454817],
     [26.04809, 44.456479],
     [26.04609, 44.456379],
