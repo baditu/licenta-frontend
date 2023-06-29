@@ -1,0 +1,51 @@
+{
+  "name": "licenta-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.18",
+    "@chakra-ui/react": "^2.5.4",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/open-sans": "^4.5.14",
+    "@fontsource/pt-serif": "^4.5.11",
+    "@fontsource/raleway": "^4.5.12",
+    "@mapbox/search-js-react": "^1.0.0-beta.16",
+    "@rainbow-me/rainbowkit": "^0.12.4",
+    "@types/mapbox-gl": "^2.7.11",
+    "@wagmi/chains": "^0.2.14",
+    "axios": "^1.4.0",
+    "ethers": "^5",
+    "fontsource-biorhyme": "^4.0.0",
+    "framer-motion": "^10.9.1",
+    "geolib": "^3.3.3",
+    "mapbox-gl": "^2.14.1",
+    "next": "13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "uuid": "^9.0.0",
+    "wagmi": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.10",
+    "@types/react": "18.0.30",
+    "@types/react-dom": "18.0.11",
+    "@types/uuid": "^9.0.1",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "prettier": "^2.8.8",
+    "typescript": "4.9.5"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  }
+}
