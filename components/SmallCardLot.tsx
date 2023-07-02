@@ -87,7 +87,7 @@ const SmallCardLot: React.FC<SmallCardLotProps> = ({
           Transfer
         </Button>
       </HStack>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      {/* <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay
           bg="blackAlpha.300"
           backdropFilter="blur(7px) grayscale(100%)"
@@ -124,7 +124,7 @@ const SmallCardLot: React.FC<SmallCardLotProps> = ({
             </HStack>
           </ModalFooter>
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
