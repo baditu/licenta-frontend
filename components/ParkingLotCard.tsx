@@ -221,6 +221,7 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
         });
 
         await refetchLotsInMarket();
+        await refetchLots();
       }
     } catch (error) {
       console.log("error: ", error);
@@ -249,12 +250,14 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
         });
 
         await refetchLots();
+        await refetchLotsInMarket();
       }
     } catch (error) {
       console.log("error: ", error);
       onCloseForList();
     }
   };
+
 
   if (isErrorAtBuy) {
     if (!toast.isActive(toastId)) {

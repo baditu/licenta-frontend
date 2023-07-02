@@ -17,7 +17,7 @@
     "@fontsource/pt-serif": "^4.5.11",
     "@fontsource/raleway": "^4.5.12",
     "@mapbox/search-js-react": "^1.0.0-beta.16",
-    "@rainbow-me/rainbowkit": "^0.12.4",
+    "@rainbow-me/rainbowkit": "^0.12.0",
     "@types/mapbox-gl": "^2.7.11",
     "@wagmi/chains": "^0.2.14",
     "axios": "^1.4.0",

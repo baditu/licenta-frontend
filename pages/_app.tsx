@@ -36,7 +36,9 @@ const { chains, provider, webSocketProvider } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: "Parking Block DApp",
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
   chains,
+
 });
 
 const wagmiClient = createClient({
