@@ -105,3 +105,37 @@ export const getGeocode = async (address: string) => {
     throw error;
   }
 };
+
+export const areCoordinatesNearby = (
+  coordinatesToCheck: number[],
+  targetCoordinates: number[],
+  distanceThreshold: number
+): boolean => {
+  const distance = calculateDistance(coordinatesToCheck, targetCoordinates);
+  if (distance <= distanceThreshold) {
+    return true;
+  }
+
+  return false;
+};
+
+const calculateDistance = (coord1: number[], coord2: number[]): number => {
+  const [lon1, lat1] = coord1;
+  const [lon2, lat2] = coord2;
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = degToRad(lat2 - lat1);
+  const dLon = degToRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(degToRad(lat1)) *
+      Math.cos(degToRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+  return distance;
+};
+
+const degToRad = (deg: number): number => {
+  return deg * (Math.PI / 180);
+};

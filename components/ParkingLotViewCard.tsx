@@ -158,9 +158,15 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
   }, [lot.listed]);
 
   useEffect(() => {
-    reverseGeocode("26.050242", "44.454618") //must be changed with nft loadout
+    reverseGeocode(lot.longitude, lot.latitude)
       .then((address: any) => {
-        setAddress(address);
+         const cuvinte: string[] = address.split(" ");
+
+         const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+         const rightAddress: string = cuvinte.slice(0, index_Buc + 1).join(" ");
+
+         setAddress(rightAddress);
       })
       .catch((error) => {
         console.error("Eroare:", error);

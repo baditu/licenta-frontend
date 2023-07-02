@@ -60,9 +60,9 @@ export default function Carousel<TItem>(
       {(isListLayout && (
         <Flex
           flexGrow={1}
-          maxH={"50vh"}
+          maxH={"100%"}
           w={"100vw"}
-          overflowY={"auto"}
+          overflowY={"scroll"}
           zIndex={100}
         >
           <Wrap w={"100%"} spacing={"2rem"} justify={"center"}>
@@ -75,64 +75,66 @@ export default function Carousel<TItem>(
         </Flex>
       )) ||
         (!isListLayout && (
-          <Flex flexGrow={1} w={"100%"} onWheel={scrollCarousel}>
-            <Flex
-              position={"relative"}
-              alignItems={"center"}
-              w={"100%"}
-              h={"100%"}
-              minH={"520px"}
-              maxH="520px"
-            >
-              <HStack
-                as={motion.div}
-                position={"absolute"}
+          <>
+            <IconButton
+              aria-label="Previous Item"
+              icon={<FaChevronLeft />}
+              position={"absolute"}
+              bgColor={"transparent"}
+              color={"#F6D13A"}
+              left={"2rem"}
+              zIndex={1001}
+              disabled={pointer <= 0}
+              onClick={decPointer}
+              id="js-previousCarouselCard"
+            />
+            <IconButton
+              aria-label="Next Item"
+              icon={<FaChevronRight />}
+              bgColor={"transparent"}
+              color={"#F6D13A"}
+              position={"absolute"}
+              right={"2rem"}
+              zIndex={1001}
+              disabled={pointer >= items.length - 1}
+              onClick={incPointer}
+              id="js-nextCarouselCard"
+            />
+            <Flex bgColor={"red"} onWheel={scrollCarousel}>
+              <Flex
+                position={"relative"}
+                alignItems={"center"}
+                w={"100%"}
                 h={"100%"}
-                spacing={"4rem"}
-                left={left}
-                animate={{
-                  left: left,
-                }}
-                transition={"0.5s"}
-                zIndex={100}
+                minH={"400px"}
+                maxH="520px"
               >
-                {items.map((item, index) => (
-                  <CarouselCard
-                    key={`carousel-item-${index}`}
-                    index={index}
-                    currIndex={pointer}
-                    front={renderFront && renderFront(item, index)}
-                    back={renderBack && renderBack(item, index)}
-                    width={width}
-                  />
-                ))}
-              </HStack>
-              <IconButton
-                aria-label="Previous Item"
-                icon={<FaChevronLeft />}
-                position={"absolute"}
-                bgColor={"transparent"}
-                color={"#F6D13A"}
-                left={"2rem"}
-                zIndex={1001}
-                disabled={pointer <= 0}
-                onClick={decPointer}
-                id="js-previousCarouselCard"
-              />
-              <IconButton
-                aria-label="Next Item"
-                icon={<FaChevronRight />}
-                bgColor={"transparent"}
-                color={"#F6D13A"}
-                position={"absolute"}
-                right={"2rem"}
-                zIndex={1001}
-                disabled={pointer >= items.length - 1}
-                onClick={incPointer}
-                id="js-nextCarouselCard"
-              />
+                <HStack
+                  as={motion.div}
+                  position={"absolute"}
+                  h={"100%"}
+                  spacing={"4rem"}
+                  left={left}
+                  animate={{
+                    left: left,
+                  }}
+                  transition={"0.5s"}
+                  zIndex={100}
+                >
+                  {items.map((item, index) => (
+                    <CarouselCard
+                      key={`carousel-item-${index}`}
+                      index={index}
+                      currIndex={pointer}
+                      front={renderFront && renderFront(item, index)}
+                      back={renderBack && renderBack(item, index)}
+                      width={width}
+                    />
+                  ))}
+                </HStack>
+              </Flex>
             </Flex>
-          </Flex>
+          </>
         ))}
     </>
   );

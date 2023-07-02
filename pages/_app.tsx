@@ -30,7 +30,6 @@ import { UserContextWrapper } from "@/context/UserContext";
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, polygon, polygonMumbai],
   [
-    publicProvider(),
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY as string }),
   ]
 );

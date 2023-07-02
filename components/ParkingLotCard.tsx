@@ -26,7 +26,7 @@ import {
   Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { getTimeTillExpired } from "../lib/helperFunctions";
+import { getTimeTillExpired, reverseGeocode } from "../lib/helperFunctions";
 import { TbParking } from "react-icons/tb";
 import { useAccount, useContractWrite } from "wagmi";
 import { BADON_ABI, MARKETPLACE_ABI, PARKING_LOT_ABI } from "@/contracts/abis";
@@ -61,6 +61,7 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
   const [price, setPrice] = useState<string>("");
   const [notEnoughBadons, setNotEnoughBadons] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [address, setAddress] = useState<string>("");
   const toast = useToast();
   const toastId = "error-toast";
   const listedLot: ListedLot = useListedLotsInMarketplace(lot.id);
@@ -80,6 +81,26 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
   const { refetch: refetchLotsInMarket } = useTokensOfOwnerPRKL(
     process.env.NEXT_PUBLIC_MARKETPLACE as `0x${string}`
   );
+
+  useEffect(() => {
+    if (lot && lot.attributes) {
+      reverseGeocode(lot.attributes[1].value, lot.attributes[0].value) //must be changed with nft loadout
+        .then((address: any) => {
+          const cuvinte: string[] = address.split(" ");
+
+          const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+          const rightAddress: string = cuvinte
+            .slice(0, index_Buc + 1)
+            .join(" ");
+
+          setAddress(rightAddress);
+        })
+        .catch((error) => {
+          console.error("Eroare:", error);
+        });
+    }
+  }, [lot]);
 
   const {
     writeAsync: buyLot,
@@ -384,7 +405,9 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
                       Price:{" "}
                     </Text>
                     <Text fontSize={"20px"} color={"black"}>
-                      {`${Math.trunc(Number(formatEther(listedLot?.price ?? 0)))}`}
+                      {`${Math.trunc(
+                        Number(formatEther(listedLot?.price ?? 0))
+                      )}`}
                     </Text>
                     <Box maxW={"24px"}>
                       <Image
@@ -401,7 +424,13 @@ const ParkingLotCard: React.FC<ParkingLotCardProps> = ({
                 <Text fontSize={"24px"} color={"black"}>
                   {lot?.name}
                 </Text>
-                <Text color={"white"}>Str. Ceahlaul no. 13</Text>
+                {address !== null && (
+                  <>
+                    <Text fontSize={"16"} color={"black"}>
+                      {`${address}`}
+                    </Text>
+                  </>
+                )}
               </VStack>
               {(isForBuying === false && (
                 <>

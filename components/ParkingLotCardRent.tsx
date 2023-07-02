@@ -26,12 +26,12 @@ import {
   Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { getTimeTillExpired } from "../lib/helperFunctions";
+import { getTimeTillExpired, reverseGeocode } from "../lib/helperFunctions";
 import { TbParking } from "react-icons/tb";
 import { useAccount, useContractWrite } from "wagmi";
 import { LENDING_MARKET_ABI, PARKING_LOT_ABI } from "@/contracts/abis";
 import { BigNumber } from "ethers";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTokensOfOwnerPRKL } from "@/lib/hooks";
 import { LotAttributes, LotDataForRent } from "@/lib/types";
 import ListOfAttributes from "./ListOfAttributes";
@@ -50,6 +50,7 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
   const { address: account } = useAccount();
   const toast = useToast();
   const toastId = "error-toast";
+  const [address, setAddress] = useState<string>("");
 
   const { refetch: refetchMyParkingLots } = useTokensOfOwnerPRKL(account!);
   const { refetch: refetchLotsInLendingMarket } = useTokensOfOwnerPRKL(
@@ -168,6 +169,37 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
     }
   }
 
+  const totalCost = useMemo(() => {
+    if (
+      lot.badonsPerPeriod !== BigNumber.from(0) ||
+      lot.badonsPerPeriod !== undefined
+    ) {
+      return lot.badonsPerPeriod?.mul(
+        BigNumber.from(24)
+          .mul(lot.daysOfPeriod ?? 0)
+          .add(lot.hoursOfPeriod ?? 0)
+      );
+    } else {
+      return 0;
+    }
+  }, [lot.badonsPerPeriod, lot.daysOfPeriod, lot.hoursOfPeriod]);
+
+  useEffect(() => {
+    reverseGeocode(lot.longitude, lot.latitude)
+      .then((address: any) => {
+        const cuvinte: string[] = address.split(" ");
+
+        const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+        const rightAddress: string = cuvinte.slice(0, index_Buc + 1).join(" ");
+
+        setAddress(rightAddress);
+      })
+      .catch((error) => {
+        console.error("Eroare:", error);
+      });
+  }, [lot])
+
   return (
     <Box borderRadius={"16px"} w={`calc(100% - 2rem)`}>
       <VStack borderRadius={"16px"} spacing={"1rem"}>
@@ -207,11 +239,11 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
                   Parking time
                 </Text>
                 <Text fontSize={"19px"} color={"white"}>
-                  {lot.borrower === "true"
+                  {lot.borrowed === true
                     ? Number(lot.endTime) * 1000 - Date.now() > 0
                       ? getTimeTillExpired(Number(lot.endTime))
                       : "- expired -"
-                    : " - not loaned -"}
+                    : "Not loaned"}
                 </Text>
               </VStack>
               <Box
@@ -231,7 +263,9 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
                   <Image alt={"badons-for-rent"} src={"./images/badon.png"} />
                 </Box>
                 <Text fontSize={"20px"} color={"black"}>
-                  {`${Math.trunc(Number(formatEther(lot.badonsPerPeriod)))}`}
+                  {`${Math.trunc(
+                    Number(formatEther(totalCost !== undefined ? totalCost : 0))
+                  )}`}
                 </Text>
               </HStack>
             </VStack>
@@ -241,7 +275,13 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
               <Text fontSize={"24px"} color={"black"}>
                 {`${lot?.name}`}
               </Text>
-              <Text color={"white"}>Str. Ceahlaul no. 13</Text>
+              {address !== null && (
+                <>
+                  <Text fontSize={"16"} color={"black"}>
+                    {`${address}`}
+                  </Text>
+                </>
+              )}
             </VStack>
             {(isForBorrowing === false && lot.borrowed === true && (
               <>
@@ -252,7 +292,6 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
             )) ||
               (isForBorrowing === false && lot.borrowed === false && (
                 <>
-                  {" "}
                   <Button onClick={onCancelClick} variant={"blackVariant"}>
                     {isCancelling === true ? <Spinner /> : "Cancel"}
                   </Button>

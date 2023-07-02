@@ -25,6 +25,7 @@ import {
   Spinner,
   WrapItem,
   HStack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
@@ -50,6 +51,8 @@ const MyParkintLots = (props: any) => {
   const [selectedLot, setSelectedLot] = useState<any>();
   const router = useRouter();
   const { address: account } = useAccount();
+
+  const [carouselCanBe, setCarouselCanBe] = useMediaQuery("(max-width: 650px)");
 
   // =========== FUNCTIONS FOR FETCH DATA FOR LOTS ===========
 
@@ -101,35 +104,38 @@ const MyParkintLots = (props: any) => {
       !isLoadingParkingLotsInLendingMarket &&
       !isLoadingLotsDataInLendingMarket
     ) {
-    }
-    (parkingLotsInLendingMarketplaceMetadata ?? []).map((lotMetadata: any) => {
-      const lotInfo = lotsDataInLendingMarket?.find(
-        (lot: any) => lot?.targetId?.toString() === lotMetadata?.id?.toString()
-      ) as LotDataForRent;
+      (parkingLotsInLendingMarketplaceMetadata ?? []).map(
+        (lotMetadata: any) => {
+          const lotInfo = lotsDataInLendingMarket?.find(
+            (lot: any) =>
+              lot?.targetId?.toString() === lotMetadata?.id?.toString()
+          ) as LotDataForRent;
 
-      if (lotInfo !== undefined) {
-        array.push({
-          id: lotMetadata.id,
-          name: lotMetadata.name,
-          image: lotMetadata.image,
-          latitude: lotMetadata.attributes[0].value,
-          longitude: lotMetadata.attributes[1].value,
-          forDisabledPeople: lotMetadata.attributes[2].value,
-          smartLot: lotMetadata.attributes[3].value,
-          isMotorcycle: lotMetadata.attributes[4].value,
-          isBicycle: lotMetadata.attributes[5].value,
-          borrowed: lotInfo.borrowed,
-          borrower: lotInfo.borrower,
-          lender: lotInfo.lender,
-          daysOfPeriod: lotInfo.daysOfPeriod,
-          hoursOfPeriod: lotInfo.hoursOfPeriod,
-          startTime: lotInfo.startTime,
-          endTime: lotInfo.endTime,
-          badonsPerPeriod: lotInfo.badonsPerPeriod,
-          targetId: lotMetadata.id,
-        });
-      }
-    });
+          if (lotInfo !== undefined) {
+            array.push({
+              id: lotMetadata.id,
+              name: lotMetadata.name,
+              image: lotMetadata.image,
+              latitude: lotMetadata.attributes[0].value,
+              longitude: lotMetadata.attributes[1].value,
+              forDisabledPeople: lotMetadata.attributes[2].value,
+              smartLot: lotMetadata.attributes[3].value,
+              isMotorcycle: lotMetadata.attributes[4].value,
+              isBicycle: lotMetadata.attributes[5].value,
+              borrowed: lotInfo.borrowed,
+              borrower: lotInfo.borrower,
+              lender: lotInfo.lender,
+              daysOfPeriod: lotInfo.daysOfPeriod,
+              hoursOfPeriod: lotInfo.hoursOfPeriod,
+              startTime: lotInfo.startTime,
+              endTime: lotInfo.endTime,
+              badonsPerPeriod: lotInfo.badonsPerPeriod,
+              targetId: lotMetadata.id,
+            });
+          }
+        }
+      );
+    }
 
     return array;
   }, [
@@ -226,7 +232,7 @@ const MyParkintLots = (props: any) => {
       <Flex
         justifyContent="center"
         alignItems="flex-start"
-        height="100%"
+        height="100vh"
         position="relative"
         zIndex={"100"}
       >
@@ -238,9 +244,8 @@ const MyParkintLots = (props: any) => {
           mt={"5px"}
           pt={8}
           pb={8}
-          overflow={"hidden"}
-          overflowY={"hidden"}
-          borderRadius={"32px"}
+          overflowX={"hidden"}
+          overflowY={isShownForBorrow === undefined ? isListLayout ? "auto" : "hidden" : "scroll"}
         >
           <Tabs variant="enclosed" isLazy>
             <TabList
@@ -282,13 +287,7 @@ const MyParkintLots = (props: any) => {
               canFetchParkingLots &&
               myParkingLotsMetadata && (
                 <>
-                  <VStack
-                    w={"100%"}
-                    h={"100%"}
-                    padding={"1rem 0 4rem 0"}
-                    spacing={"1rem"}
-                  >
-                    {" "}
+                  <VStack w={"100%"} h={"100%"} spacing={"1rem"}>
                     <Carousel<BaseLotData>
                       items={myParkingLotsMetadata}
                       isListLayout={isListLayout}

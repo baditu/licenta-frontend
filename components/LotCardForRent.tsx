@@ -26,7 +26,7 @@ import {
   Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { getTimeTillExpired } from "../lib/helperFunctions";
+import { getTimeTillExpired, reverseGeocode } from "../lib/helperFunctions";
 import { TbParking } from "react-icons/tb";
 import { useAccount, useContractWrite } from "wagmi";
 import {
@@ -63,9 +63,48 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
   const [periodInDays, setPeriodInDays] = useState<number>(0);
   const [periodInHours, setPeriodInHours] = useState<number>(0);
   const [notEnoughBadons, setNotEnoughBadons] = useState<boolean>(false);
+  const [address, setAddress] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
   const toastId = "error-toast";
+
+  useEffect(() => {
+    if (lot) {
+      if (isForBorrowing == true) {
+        reverseGeocode(lot.longitude, lot.latitude) //must be changed with nft loadout
+          .then((address: any) => {
+            const cuvinte: string[] = address.split(" ");
+
+            const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+            const rightAddress: string = cuvinte
+              .slice(0, index_Buc + 1)
+              .join(" ");
+
+            setAddress(rightAddress);
+          })
+          .catch((error) => {
+            console.error("Eroare:", error);
+          });
+      } else {
+        reverseGeocode(lot.attributes[1].value, lot.attributes[0].value) //must be changed with nft loadout
+          .then((address: any) => {
+            const cuvinte: string[] = address.split(" ");
+
+            const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+            const rightAddress: string = cuvinte
+              .slice(0, index_Buc + 1)
+              .join(" ");
+
+            setAddress(rightAddress);
+          })
+          .catch((error) => {
+            console.error("Eroare:", error);
+          });
+      }
+    }
+  }, [isForBorrowing, lot]);
 
   const {
     isOpen: isOpenForLend,
@@ -352,7 +391,7 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
                         ? Number(lot.endTime) * 1000 - Date.now() > 0
                           ? getTimeTillExpired(Number(lot.endTime))
                           : "- expired -"
-                        : " - not loaned -"}
+                        : "Not loaned"}
                     </Text>
                   </>
                 )}
@@ -400,9 +439,18 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
             </VStack>
           </HStack>
           <HStack justifyContent={"space-between"} pr={"10px"}>
-            <Text fontSize={"24px"} color={"black"}>
-              {lot?.name}
-            </Text>
+            <VStack alignItems={"flex-start"}>
+              <Text fontSize={"24px"} color={"black"}>
+                {lot?.name}
+              </Text>
+              {address !== null && (
+                <>
+                  <Text fontSize={"16"} color={"black"}>
+                    {`${address}`}
+                  </Text>
+                </>
+              )}
+            </VStack>
             {(isForBorrowing === false && (
               <>
                 <Button onClick={onOpenForLend} variant={"blackVariant"}>

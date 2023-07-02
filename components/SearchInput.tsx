@@ -13,14 +13,16 @@ import { getGeocode } from "@/lib/helperFunctions";
 interface SearchInputProps {
   coordinates: any;
   setCoordinates: Function;
+  address: string;
+  setAddress: Function;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
   coordinates,
   setCoordinates,
+  address,
+  setAddress,
 }) => {
-  const [address, setAddress] = useState<string>("");
-
   const handleSearch = async (address: string) => {
     try {
       const coordinates = await getGeocode(address);

@@ -33,7 +33,11 @@ import {
   useAllLotsInLendingMarket,
   useTokensOfOwnerPRKL,
 } from "@/lib/hooks";
-import { getAllLotsMetadata, getSortedLots } from "@/lib/helperFunctions";
+import {
+  getAllLotsMetadata,
+  getSortedLots,
+  areCoordinatesNearby,
+} from "@/lib/helperFunctions";
 import { GetStaticPropsContext } from "next";
 import {
   BaseLotData,
@@ -58,6 +62,8 @@ const FindParkingLot = (props: any) => {
   const { state: userState, dispatch } = useUserContext();
   const [filtersState, setFiltersState] = useState<any>(userState?.filters);
   const [selectedLot, setSelectedLot] = useState<any>(null);
+  const [coordinates, setCoordinates] = useState<number[] | null>(null);
+  const [address, setAddress] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   let filterIsSet = false; //used to change the icon for filters to inform user that filtes are set
 
@@ -349,7 +355,7 @@ const FindParkingLot = (props: any) => {
     filteredDataLotsInMarket,
   ]);
 
-  const filteredParkingLots = useMemo(() => {
+  const filteredParkingLots: any = useMemo(() => {
     const lots = (currentLots ?? []).filter((parkingLot: any) => {
       if (!parkingLot) {
         return null;
@@ -484,14 +490,17 @@ const FindParkingLot = (props: any) => {
               backgroundColor={"#F6D13A"}
               _hover={{ bg: "#f5d556" }}
               leftIcon={<DeleteIcon />}
-              onClick={() => setSelectedLot(null)}
+              onClick={() => {
+                setSelectedLot(null);
+                setCoordinates(null);
+                setAddress("");
+              }}
             >
               Reset
             </Button>
           </HStack>
 
           <HStack>
-            {/* <SearchInput /> */}
             <Button
               color={"black"}
               backgroundColor={"#F6D13A"}
@@ -535,6 +544,17 @@ const FindParkingLot = (props: any) => {
                             (lot: LotsDataFilters, index: number) => {
                               if (!lot) return;
 
+                              if (
+                                coordinates !== null &&
+                                !areCoordinatesNearby(
+                                  [Number(lot.longitude), Number(lot.latitude)],
+                                  coordinates,
+                                  0.5
+                                )
+                              ) {
+                                return;
+                              }
+
                               return (
                                 <WrapItem key={index}>
                                   <ParkingLotViewCard lot={lot} />
@@ -550,6 +570,10 @@ const FindParkingLot = (props: any) => {
                     selectedLot={selectedLot}
                     setSelectedLot={setSelectedLot}
                     listedLots={sortedParkingLots}
+                    coordinates={coordinates}
+                    setCoordinates={setCoordinates}
+                    address={address}
+                    setAddress={setAddress}
                   />
                 </Box>
               </Flex>

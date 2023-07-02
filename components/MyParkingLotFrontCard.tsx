@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   VStack,
   Text,
@@ -22,7 +22,7 @@ import {
   ModalFooter,
   Spinner,
 } from "@chakra-ui/react";
-import { getTimeTillExpired } from "../lib/helperFunctions";
+import { getTimeTillExpired, reverseGeocode } from "../lib/helperFunctions";
 import { useRouter } from "next/router";
 import { useAccount, useContractWrite } from "wagmi";
 import { useTokensOfOwnerPRKL } from "@/lib/hooks";
@@ -42,6 +42,7 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
   const router = useRouter();
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
   const [toAddress, setToAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
   const toast = useToast();
   const toastId = "error-toast";
 
@@ -62,6 +63,26 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
       window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (item && item.attributes) {
+      reverseGeocode(item.attributes[1].value, item.attributes[0].value) //must be changed with nft loadout
+        .then((address: any) => {
+          const cuvinte: string[] = address.split(" ");
+
+          const index_Buc: number = cuvinte.indexOf("Bucharest");
+
+          const rightAddress: string = cuvinte
+            .slice(0, index_Buc + 1)
+            .join(" ");
+
+          setAddress(rightAddress);
+        })
+        .catch((error) => {
+          console.error("Eroare:", error);
+        });
+    }
+  }, [item]);
 
   const {
     writeAsync: transferLot,
@@ -241,7 +262,13 @@ const MyParkingLotFrontCard: React.FC<MyParkingLotFrontCardProps> = ({
                     <Text fontSize={"24px"} color={"black"}>
                       {item?.name}
                     </Text>
-                    <Text color={"white"}>Str. Ceahlaul no. 13</Text>
+                    {address !== null && (
+                      <>
+                        <Text fontSize={"16"} color={"black"}>
+                          {`${address}`}
+                        </Text>
+                      </>
+                    )}
                   </VStack>
                   <Button onClick={onOpen} variant={"blackVariant"}>
                     Transfer

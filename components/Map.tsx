@@ -12,23 +12,22 @@ interface MapProps {
   listedLots: any;
   selectedLot: any;
   setSelectedLot: Function;
+  coordinates: number[] | null;
+  setCoordinates: Function;
+  address: string;
+  setAddress: Function;
 }
 
 const MyMap: React.FC<MapProps> = ({
   listedLots,
   selectedLot,
   setSelectedLot,
+  coordinates,
+  setCoordinates,
+  address,
+  setAddress,
 }) => {
   const [map, setMap] = useState<Map | null>();
-  const [value, setValue] = useState<string>("");
-  const [coordinates, setCoordinates] = useState<number[] | null>(null);
-
-  const coordForLots: number[][] = [
-    [26.048777762367735, 44.45515159566261],
-    [26.048992, 44.454817],
-    [26.04809, 44.456479],
-    [26.04609, 44.456379],
-  ];
 
   const mapNode = useRef(null);
 
@@ -71,7 +70,7 @@ const MyMap: React.FC<MapProps> = ({
     popup.on("close", () => {});
 
     new mapboxgl.Marker({ color: "#F6D13A", scale: 0.7 })
-      .setLngLat([coordForLots?.[index]?.[0], coordForLots?.[index]?.[1]]) //must be changed with the coordonates of the nft
+      .setLngLat([lot.longitude.toString(), lot.latitude.toString()]) //must be changed with the coordonates of the nft
       .setPopup(popup)
       .addTo(map!);
   });
@@ -91,6 +90,8 @@ const MyMap: React.FC<MapProps> = ({
         <SearchInput
           coordinates={coordinates}
           setCoordinates={setCoordinates}
+          address={address}
+          setAddress={setAddress}
         />
       </Box>
       <Box zIndex={100} ref={mapNode} width={"100%"} height={"72%"}></Box>
