@@ -242,7 +242,7 @@ const ParkingLotCardRent: React.FC<ParkingLotCardPropsRent> = ({
                   {lot.borrowed === true
                     ? Number(lot.endTime) * 1000 - Date.now() > 0
                       ? getTimeTillExpired(Number(lot.endTime))
-                      : "- expired -"
+                      : "Expired"
                     : "Not loaned"}
                 </Text>
               </VStack>

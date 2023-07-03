@@ -18,9 +18,28 @@ const ListOfAttributesForRent: React.FC<ListOfAttributesForRentProps> = ({
   return (
     <>
       <List bgColor={"black"} borderRadius={"16px"} padding={"1rem"}>
+        {forDisabledPeople === "false" &&
+          smartLot === "false" &&
+          isMotorcycle === "false" &&
+          isBicycle === "false" && (
+            <>
+              <ListItem
+                width={"100%"}
+                whiteSpace={"nowrap"}
+                textOverflow={"ellipsis"}
+                fontSize={"12px"}
+                color={"#F6D13A"}
+              >
+                <ListIcon
+                  as={CheckIcon}
+                  color="black.500"
+                />
+                Normal car
+              </ListItem>
+            </>
+          )}
         {forDisabledPeople === "true" && (
           <>
-            {" "}
             <ListItem
               width={"100%"}
               whiteSpace={"nowrap"}
@@ -60,7 +79,6 @@ const ListOfAttributesForRent: React.FC<ListOfAttributesForRentProps> = ({
         )}
         {isBicycle === "true" && (
           <>
-            {" "}
             <ListItem
               width={"100%"}
               whiteSpace={"nowrap"}

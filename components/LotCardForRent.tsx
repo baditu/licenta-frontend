@@ -343,6 +343,8 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
     isLoadingAtApproveForAll,
   ]);
 
+  console.log(lot);
+
   return (
     <Box borderRadius={"16px"} w={`calc(100% - 2rem)`}>
       <VStack borderRadius={"16px"} spacing={"1rem"}>
@@ -387,11 +389,21 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
                       fontSize={"19px"}
                       color={"white"}
                     >
-                      {lot.borrower === "true"
-                        ? Number(lot.endTime) * 1000 - Date.now() > 0
-                          ? getTimeTillExpired(Number(lot.endTime))
-                          : "- expired -"
-                        : "Not loaned"}
+                      {Number(lot.daysOfPeriod) === 0
+                        ? Number(lot.hoursOfPeriod) !== 0
+                          ? `${Number(lot.hoursOfPeriod)} ${
+                              Number(lot.hoursOfPeriod) > 1 ? "hours" : "hour"
+                            }`
+                          : "-"
+                        : Number(lot.hoursOfPeriod) === 0
+                        ? `${Number(lot.daysOfPeriod)} ${
+                            Number(lot.daysOfPeriod) > 1 ? "days" : "day"
+                          }`
+                        : `${Number(lot.daysOfPeriod)} ${
+                            Number(lot.daysOfPeriod) > 1 ? "days" : "day"
+                          } ${Number(lot.hoursOfPeriod)} ${
+                            Number(lot.hoursOfPeriod) > 1 ? "hours" : "hour"
+                          }`}
                     </Text>
                   </>
                 )}
@@ -403,7 +415,6 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
               >
                 {(isForBorrowing === true && (
                   <>
-                    {" "}
                     <ListOfAttributesForRent
                       forDisabledPeople={lot.forDisabledPeople}
                       smartLot={lot.smartLot}
@@ -419,21 +430,23 @@ const LotCardForRent: React.FC<LotCardForRentProps> = ({
               </Box>
               {isForBorrowing === true && (
                 <>
-                  <HStack spacing={"0"}>
-                    <Box maxW={"24px"}>
-                      <Image
-                        alt={"badons-for-rent"}
-                        src={"./images/badon.png"}
-                      />
-                    </Box>
-                    <Text fontSize={"20px"} color={"black"}>
-                      {`${Math.trunc(
-                        Number(
-                          formatEther(totalCost !== undefined ? totalCost : 0)
-                        )
-                      )}`}
-                    </Text>
-                  </HStack>
+                  <VStack>
+                    <HStack spacing={"0"}>
+                      <Box maxW={"24px"}>
+                        <Image
+                          alt={"badons-for-rent"}
+                          src={"./images/badon.png"}
+                        />
+                      </Box>
+                      <Text fontSize={"20px"} color={"black"}>
+                        {`${Math.trunc(
+                          Number(
+                            formatEther(totalCost !== undefined ? totalCost : 0)
+                          )
+                        )}`}
+                      </Text>
+                    </HStack>
+                  </VStack>
                 </>
               )}
             </VStack>

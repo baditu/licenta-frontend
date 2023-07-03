@@ -52,8 +52,6 @@ const MyParkintLots = (props: any) => {
   const router = useRouter();
   const { address: account } = useAccount();
 
-  const [carouselCanBe, setCarouselCanBe] = useMediaQuery("(max-width: 650px)");
-
   // =========== FUNCTIONS FOR FETCH DATA FOR LOTS ===========
 
   // fetch all my parking lots owned (metadata)
