@@ -1,4 +1,8 @@
-import { BADON_ABI, MARKETPLACE_ABI } from "@/contracts/abis";
+import {
+  BADON_ABI,
+  LENDING_MARKET_ABI,
+  MARKETPLACE_ABI,
+} from "@/contracts/abis";
 import { reverseGeocode } from "@/lib/helperFunctions";
 import {
   useAllowanceForToken,
@@ -27,6 +31,7 @@ import {
   Spinner,
   useToast,
 } from "@chakra-ui/react";
+import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils.js";
 import React, { useEffect, useState } from "react";
 import { TbParking } from "react-icons/tb";
@@ -55,6 +60,10 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
   const { refetch: refetchLotsInMarket } = useTokensOfOwnerPRKL(
     process.env.NEXT_PUBLIC_MARKETPLACE as `0x${string}`
   );
+  const { refetch: refetchLots } = useTokensOfOwnerPRKL(account!);
+  const { refetch: refetchLotsInLendingMarket } = useTokensOfOwnerPRKL(
+    process.env.NEXT_PUBLIC_LENDING_MARKET as `0x${string}`
+  );
 
   const {
     writeAsync: buyLot,
@@ -67,6 +76,22 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
     address: process.env.NEXT_PUBLIC_MARKETPLACE as `0x${string}`,
     abi: MARKETPLACE_ABI,
     functionName: "buyNFT",
+    onSuccess: async (data) => {
+      await data.wait();
+    },
+  });
+
+  const {
+    writeAsync: borrowLot,
+    isLoading: isBorrowing,
+    isError: isErrorAtBorrow,
+    isSuccess: isSuccessAtBorrow,
+    reset: resetBorrow,
+  } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: process.env.NEXT_PUBLIC_LENDING_MARKET as `0x${string}`,
+    abi: LENDING_MARKET_ABI,
+    functionName: "borrowLot",
     onSuccess: async (data) => {
       await data.wait();
     },
@@ -86,6 +111,40 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
       await data.wait();
     },
   });
+
+  const onBorrowClick = async (lotId: number) => {
+    try {
+      const totalBadons = lot.price;
+
+      if (totalBadons.gt(myBalanceOfBadons ?? 0)) {
+        setNotEnoughBadons(true);
+        return;
+      }
+
+      if (allowance?.lt(totalBadons ?? 0)) {
+        const difAmount = totalBadons.sub(allowance ?? 0);
+
+        if (writeApproveForBadon) {
+          await writeApproveForBadon({
+            recklesslySetUnpreparedArgs: [
+              process.env.NEXT_PUBLIC_LENDING_MARKET as `0x${string}`,
+              difAmount,
+            ],
+          });
+        }
+      }
+
+      if (borrowLot) {
+        await borrowLot({
+          recklesslySetUnpreparedArgs: [BigNumber.from(lotId)],
+        });
+
+        await refetchLotsInLendingMarket();
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
 
   const onBuyClick = async () => {
     if (lot.listed === true) {
@@ -121,6 +180,37 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
       }
     }
   };
+
+  if (isErrorAtBorrow) {
+    if (!toast.isActive(toastId)) {
+      toast({
+        id: toastId,
+        position: "bottom",
+        isClosable: true,
+        duration: 2000,
+        render: () => (
+          <Box
+            alignItems={"center"}
+            p={3}
+            bgGradient="linear(to-b, #F6D13A, #D56B2D)"
+            rounded="md"
+          >
+            {(notEnoughBadons === true && (
+              <Text color="black">
+                You don&apos;t have enough Badons to buy this parking lot.
+              </Text>
+            )) || (
+              <Text color="black">
+                Something went wrong while borrowing your parking space.
+                <br />
+                Please try again.
+              </Text>
+            )}
+          </Box>
+        ),
+      });
+    }
+  }
 
   if (isErrorAtBuy) {
     if (!toast.isActive(toastId)) {
@@ -160,13 +250,13 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
   useEffect(() => {
     reverseGeocode(lot.longitude, lot.latitude)
       .then((address: any) => {
-         const cuvinte: string[] = address.split(" ");
+        const cuvinte: string[] = address.split(" ");
 
-         const index_Buc: number = cuvinte.indexOf("Bucharest");
+        const index_Buc: number = cuvinte.indexOf("Bucharest");
 
-         const rightAddress: string = cuvinte.slice(0, index_Buc + 1).join(" ");
+        const rightAddress: string = cuvinte.slice(0, index_Buc + 1).join(" ");
 
-         setAddress(rightAddress);
+        setAddress(rightAddress);
       })
       .catch((error) => {
         console.error("Eroare:", error);
@@ -174,8 +264,8 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
   }, [lot]);
 
   useEffect(() => {
-    setIsLoading(isLoadingAtApproveForBadon || isBuying);
-  }, [isBuying, isLoadingAtApproveForBadon]);
+    setIsLoading(isLoadingAtApproveForBadon || isBuying || isBorrowing);
+  }, [isBuying, isLoadingAtApproveForBadon, isBorrowing]);
 
   return (
     <Card
@@ -337,7 +427,7 @@ const ParkingLotViewCard: React.FC<ParkingLotViewCardProps> = ({ lot }) => {
             </>
           )) || (
             <>
-              <Button variant={"blackVariant"}>Borrow</Button>
+              <Button variant={"blackVariant"} onClick={() => onBorrowClick(lot.id)}>{isLoading === true ? <Spinner /> : "Borrow"}</Button>
             </>
           )}
         </VStack>

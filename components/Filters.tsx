@@ -98,11 +98,11 @@ const Filters: React.FC<FiltersProps> = ({ onChangeCallback }) => {
           fontWeight={"bold"}
           color={"black"}
           fontSize={"24px"}
-          pb={"1rem"}
+          pb={"0.5"}
         >
           Filters - Parking Lots
         </Text>
-        <Box pb={"1rem"}>
+        <Box pb={"0.5"}>
           <Text textColor={"white"} fontSize={"18px"}>
             By attributes
           </Text>
@@ -174,7 +174,7 @@ const Filters: React.FC<FiltersProps> = ({ onChangeCallback }) => {
         </Box>
         {isForRent !== undefined && (
           <>
-            <Text textColor={"white"} fontSize={"18px"} pb={"1rem"}>
+            <Text textColor={"white"} fontSize={"18px"}>
               {isForRent ? "By price or period" : "By price"}
             </Text>
 
